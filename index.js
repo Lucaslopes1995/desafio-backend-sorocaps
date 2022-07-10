@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const logger = require('./src/looger');
+// const logger = require('./src/looger');
 
 // const pinoHttp = require('pino-http')({ logger })
 // const LogssService = require('./src/Services/LogssService')
@@ -28,5 +28,5 @@ app.use('/',router);
 const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
-	logger.info(`Ouvindo na Porta: ${PORT}`);
+	console.log(`Ouvindo na Porta: ${PORT}`);
 });
