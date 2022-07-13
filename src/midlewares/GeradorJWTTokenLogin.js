@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { use } = require('../Routes/UsersRouter');
+const { use } = require('../Routes');
 
 const secret = 'criandoNovoUsuario';
 

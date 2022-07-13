@@ -7,7 +7,7 @@ const cors = require('cors');
 // const pinoHttp = require('pino-http')({ logger })
 // const LogssService = require('./src/Services/LogssService')
 
-const router = require('./src/Routes/UsersRouter')
+const router = require('./src/Routes')
 
 
 
