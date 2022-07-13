@@ -5,15 +5,11 @@ const { Users } = require('../models');
 const secret = 'criandoNovoUsuario';
 
 const validateJwt = async (req,res,next) => {
-	// console.log(req)
 	const token = req.headers.authorization;
-	// console.log(token);
 	try {
 		if(!token) return res.status(401).json({message: "Token não existe"});
 		
 		const payload = jwt.verify(token,secret);
-
-		// console.log(payload);
 		
 		const {name} = payload.data;
 		

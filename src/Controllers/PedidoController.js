@@ -52,6 +52,14 @@ const create = async (req, res) => {
 		const produto = await ProductService.getByPrecoVendaID(produto_id)
 		const precoCadastrado = produto?.dataValues?.precoDaVenda
 		// console.log(produto.dataValues.precoDaVenda)
+
+		if (!valorDaVenda) return res.status(401).json({message:"É preciso adicionar o Valor da Venda"});
+		if (!quantidade) return res.status(401).json({message:"É preciso adicionar a Quantidade"});
+		if (!status) return res.status(401).json({message:"É preciso adicionar o Status"});
+		if (!cliente_id) return res.status(401).json({message:"É preciso adicionar o id do Cliente"});
+		if (!produto_id) return res.status(401).json({message:"É preciso adicionar o id do produto"});
+
+
 		
 		if (valorDaVenda<precoCadastrado) return res.status(401).json({message:"Valor não pode ser menor que o Valor da venda do produto"});
 		// console.log(precoCadastrado)

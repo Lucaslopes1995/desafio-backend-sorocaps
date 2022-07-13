@@ -32,6 +32,9 @@ router.get('/users/:id',UsersController.getById);
 
 router.post('/user/:name',UsersController.verificaByName, GeradorJWTTokenLogin);
 
+router.post('/user/',UsersController.verificaByNamePWD, GeradorJWTTokenLogin);
+
+
 router.post('/users/',UsersController.create, GeradorJWTToken);
 
 router.get('/clientes/',ClienteController.getAll);

@@ -29,6 +29,7 @@ const getByCNPJ = async (cnpj) => {
 }
 
 const create = async ( nome, razaoSocial, cnpj, endereco) => {
+
 	const user = await Clientes.create({nome,razaoSocial, cnpj, endereco});
 	return user;
 }

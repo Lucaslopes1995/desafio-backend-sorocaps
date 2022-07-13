@@ -7,10 +7,10 @@ const secret = 'criandoNovoUsuario';
 
 const geraToken = async (req, res) => {
 	
-	const {name} = req.params;
+	const {name, password} = req.body;
 
 	// console.log("op",name, password)
-	const user = {name}
+	const user = {name, password}
 	
 	
 	const jwtConfig = {

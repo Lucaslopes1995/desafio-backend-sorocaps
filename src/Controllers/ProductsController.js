@@ -48,6 +48,17 @@ const create = async (req, res) => {
 		// const produto = await getByCNPJ(cnpj)
 		// console.log(req.body)
 		// if (produto) return res.status(401).json({message:"CNPJ Já existe"});
+
+		if (!nomeProduto) return res.status(401).json({message:"É preciso adicionar o Nome do Produto"});
+		if (!codigoDoProduto) return res.status(401).json({message:"É preciso adicionar Código do Produto"});
+		if (!descricaoDoProduto) return res.status(401).json({message:"É preciso adicionar a Descrição do Produto"});
+		if (!unidadeDeMedida) return res.status(401).json({message:"É preciso adicionar a Unidade de Medida"});
+		if (!valorDaCompra) return res.status(401).json({message:"É preciso adicionar o Valor da Compra"});
+		if (!precoDaVenda) return res.status(401).json({message:"É preciso adicionar o Preço da Venda"});
+
+
+
+
 		await ProductService.create( nomeProduto, codigoDoProduto, descricaoDoProduto, unidadeDeMedida, valorDaCompra, precoDaVenda );
 		return res.status(203).json({message:"Produto Criado com Sucesso"});
 		

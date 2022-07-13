@@ -27,6 +27,17 @@ const verificaByName = async (name) => {
 	return user;
 }
 
+const verificaByNamePWD = async (name, password) => {
+	// console.log("name")
+	const nameUser = await Users.findOne({where:{name}});
+	// console.log(nameUser);
+
+	if (!nameUser) return "Usuário não encontrado";
+
+	const user = await Users.findOne({where:{name, password}});
+	return user;
+}
+
 const getByName = async (name, password) => {
 	const user = await Users.findOne({where: {name, password}});
 	if (user) return user
@@ -39,4 +50,4 @@ const create = async ( name, password) => {
 	return user;
 }
 
-module.exports = {getAll, getById, verificaByName, getByName, create};
+module.exports = {getAll, getById, verificaByName, verificaByNamePWD, getByName, create};

@@ -2,7 +2,7 @@ const Cliente = (sequelize,DataTypes) => {
 	const Cliente = sequelize.define("Clientes",{
 		nome:DataTypes.STRING,
 		razaoSocial: DataTypes.STRING,
-		cnpj: DataTypes.INTEGER,
+		cnpj: DataTypes.STRING,
 		endereco: DataTypes.STRING
 	},{
 		timestamps:false,

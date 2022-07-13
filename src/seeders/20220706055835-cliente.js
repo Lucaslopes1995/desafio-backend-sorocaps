@@ -6,13 +6,13 @@ module.exports = {
 		{
 			nome:"fernando",
 			razaoSocial: "testeRa",
-			cnpj: 1234567,
+			cnpj: '1234567',
 			endereco: "rua teste",
 		},
 		{
 			nome:"gabriela",
 			razaoSocial: "teste1",
-			cnpj: 1234512,
+			cnpj: '1234512',
 			endereco: "rua outro teste",
 		}
 	])

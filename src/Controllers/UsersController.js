@@ -38,6 +38,21 @@ const verificaByName = async (req, res, next) => {
 	}
 };
 
+const verificaByNamePWD = async (req, res, next) => {
+	const { name, password } = req.body;
+	console.log(req.body);
+	try {
+		const user = await UserService.verificaByNamePWD(name, password);
+		console.log(user);
+		if (user === "Usuário não encontrado") return res.status(404).json({message:"Usuário não encontrado"});
+		if (user === null) return res.status(404).json({message:"Dados Inválidos"});
+		next();
+		
+	} catch (error) {
+		return res.status(500).json({message: error});
+	}
+};
+
 const getByName = async (name, password) => {
 
 	try {
@@ -55,9 +70,11 @@ const create = async (req, res, next) => {
 	// console.log(req.body)
 
 	try {
+		if(!name && !password) return res.status(401).json({message:"É preciso adicionar Nome e Senha"});
+		if(!name) return res.status(401).json({message:"É preciso adicionar Nome"});
+		if(!password) return res.status(401).json({message:"É preciso adicionar Senha"});
 		const user = await getByName(name, password)
-		// console.log(user)
-		if (user) return res.status(401).json({message:"Usuário Já existe"});
+		if (user) return res.status(401).json({message:"Usuário já existe"});
 		await UserService.create(name, password);
 		
 		next()
@@ -69,4 +86,4 @@ const create = async (req, res, next) => {
 };
 
 
-module.exports = {getAll, getById, verificaByName ,create};
+module.exports = {getAll, getByName, getById, verificaByName, verificaByNamePWD ,create};
