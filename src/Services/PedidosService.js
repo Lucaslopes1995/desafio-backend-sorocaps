@@ -25,7 +25,7 @@ const getById = async (id) => {
 }
 
 const create = async ( valorDaVenda, quantidade, status, cliente_id, produto_id) => {
-	console.log(valorDaVenda, quantidade, status, cliente_id, produto_id);
+	// console.log(valorDaVenda, quantidade, status, cliente_id, produto_id);
 	const pedido = await Pedidos.create({valorDaVenda, quantidade, status, cliente_id, produto_id: produto_id});
 	return pedido;
 }

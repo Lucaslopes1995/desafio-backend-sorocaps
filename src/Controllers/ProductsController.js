@@ -26,41 +26,34 @@ const getById = async (req, res) => {
 	}
 };
 
-// const getByCNPJ = async (cnpj) => {
-
-// 	try {
-// 		const produto = await ProductService.getByCNPJ(cnpj);
-
-// 		return produto
-		
-// 	} catch (error) {
-// 		return error.message
-// 	}
-// };
-
-const create = async (req, res) => {
+const create = async (req, res, next) => {
 	const { nomeProduto,  codigoDoProduto, descricaoDoProduto, unidadeDeMedida, valorDaCompra, precoDaVenda } = req.body;
-	// const dataProducts = {codigoDoProduto, descricaoDoProduto, unidadeDeMedida, valorDaCompra, precoDaVenda}
-	// const {user} = req;
-	// console.log(req.body);
+
 
 	try {
 		// const produto = await getByCNPJ(cnpj)
 		// console.log(req.body)
 		// if (produto) return res.status(401).json({message:"CNPJ Já existe"});
 
-		if (!nomeProduto) return res.status(401).json({message:"É preciso adicionar o Nome do Produto"});
-		if (!codigoDoProduto) return res.status(401).json({message:"É preciso adicionar Código do Produto"});
-		if (!descricaoDoProduto) return res.status(401).json({message:"É preciso adicionar a Descrição do Produto"});
-		if (!unidadeDeMedida) return res.status(401).json({message:"É preciso adicionar a Unidade de Medida"});
-		if (!valorDaCompra) return res.status(401).json({message:"É preciso adicionar o Valor da Compra"});
-		if (!precoDaVenda) return res.status(401).json({message:"É preciso adicionar o Preço da Venda"});
+		if (!nomeProduto) return res.status(400).json({message:"É preciso adicionar o Nome do Produto"});
+		if (!codigoDoProduto) return res.status(400).json({message:"É preciso adicionar Código do Produto"});
+		if (!descricaoDoProduto) return res.status(400).json({message:"É preciso adicionar a Descrição do Produto"});
+		if (!unidadeDeMedida) return res.status(400).json({message:"É preciso adicionar a Unidade de Medida"});
+		if (!valorDaCompra) return res.status(400).json({message:"É preciso adicionar o Valor da Compra"});
+		if (!precoDaVenda) return res.status(400).json({message:"É preciso adicionar o Preço da Venda"});
 
 
 
 
 		await ProductService.create( nomeProduto, codigoDoProduto, descricaoDoProduto, unidadeDeMedida, valorDaCompra, precoDaVenda );
-		return res.status(203).json({message:"Produto Criado com Sucesso"});
+
+		// return res.status(203).json({message:"Produto Criado com Sucesso"});
+
+		req.res = {status:201,message:{message:"Produto Criado com Sucesso"}}
+
+
+		next();
+		
 		
 	} catch (error) {
 		return res.status(500).json({message: error});

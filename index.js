@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-// const logger = require('./src/looger');
+const logger = require('./src/looger');
 
 // const pinoHttp = require('pino-http')({ logger })
 // const LogssService = require('./src/Services/LogssService')

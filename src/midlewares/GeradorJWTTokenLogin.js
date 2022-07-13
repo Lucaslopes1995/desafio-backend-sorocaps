@@ -1,16 +1,15 @@
 const jwt = require('jsonwebtoken');
 const { use } = require('../Routes');
 
-const secret = 'criandoNovoUsuario';
+const secret = process.env.SECRET;
 
 
 
 const geraToken = async (req, res) => {
 	
-	const {name, password} = req.body;
+	const {usuario, password} = req.body;
 
-	// console.log("op",name, password)
-	const user = {name, password}
+	const user = {usuario, password}
 	
 	
 	const jwtConfig = {
@@ -19,7 +18,6 @@ const geraToken = async (req, res) => {
 	};
 	
 	const token = jwt.sign({ data: user }, secret, jwtConfig);
-	// console.log(user);
 	return res.status(200).json({ token });
 } 
 

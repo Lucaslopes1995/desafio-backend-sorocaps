@@ -19,35 +19,35 @@ const getAll = async () =>{
 const getById = async (id) => {
 	const user = await Users.findByPk(id);
 	return user;
-}
+};
 
-const verificaByName = async (name) => {
-	// console.log(name)
-	const user = await Users.findOne({where:{name}});
+const vericaByUser = async (usuario) => {
+	const user = await Users.findOne({where:{usuario}});
+	console.log(user)
 	return user;
 }
 
-const verificaByNamePWD = async (name, password) => {
+const vericaByUserPWD = async (usuario,password) => {
 	// console.log("name")
-	const nameUser = await Users.findOne({where:{name}});
+	const nameUser = await Users.findOne({where:{usuario}});
 	// console.log(nameUser);
 
 	if (!nameUser) return "Usuário não encontrado";
 
-	const user = await Users.findOne({where:{name, password}});
+	const user = await Users.findOne({where:{usuario, password}});
 	return user;
 }
 
-const getByName = async (name, password) => {
-	const user = await Users.findOne({where: {name, password}});
+const getByUser = async (usuario, password) => {
+	const user = await Users.findOne({where: {usuario, password}});
 	if (user) return user
 
 	return false;
 }
 
-const create = async ( name, password) => {
-	const user = await Users.create({name, password});
+const create = async ( name, usuario, password) => {
+	const user = await Users.create({name, usuario,  password});
 	return user;
 }
 
-module.exports = {getAll, getById, verificaByName, verificaByNamePWD, getByName, create};
+module.exports = {getAll, getById, vericaByUser, vericaByUserPWD, getByUser, create};

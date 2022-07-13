@@ -31,60 +31,50 @@ const getById = async (req, res) => {
 	}
 };
 
-// const getByPrecoVendaID = async (id) => {
 
-// 	try {
-// 		const cliente = await ProductService.getByPrecoVendaID(id);
-
-// 		return cliente
-		
-// 	} catch (error) {
-// 		return error.message
-// 	}
-// };
-
-const create = async (req, res) => {
+const create = async (req, res, next) => {
 	const { valorDaVenda, quantidade, status, cliente_id, produto_id } = req.body;
-	// const {user} = req;
+
 	
 	try {
-		// console.log(valorDaVenda, status, cliente_id, produto_id);
 		const produto = await ProductService.getByPrecoVendaID(produto_id)
 		const precoCadastrado = produto?.dataValues?.precoDaVenda
-		// console.log(produto.dataValues.precoDaVenda)
 
-		if (!valorDaVenda) return res.status(401).json({message:"É preciso adicionar o Valor da Venda"});
-		if (!quantidade) return res.status(401).json({message:"É preciso adicionar a Quantidade"});
-		if (!status) return res.status(401).json({message:"É preciso adicionar o Status"});
-		if (!cliente_id) return res.status(401).json({message:"É preciso adicionar o id do Cliente"});
-		if (!produto_id) return res.status(401).json({message:"É preciso adicionar o id do produto"});
+
+		if (!valorDaVenda) return res.status(400).json({message:"É preciso adicionar o Valor da Venda"});
+		if (!quantidade) return res.status(400).json({message:"É preciso adicionar a Quantidade"});
+		if (!status) return res.status(400).json({message:"É preciso adicionar o Status"});
+		if (!cliente_id) return res.status(400).json({message:"É preciso adicionar o id do Cliente"});
+		if (!produto_id) return res.status(400).json({message:"É preciso adicionar o id do produto"});
 
 
 		
-		if (valorDaVenda<precoCadastrado) return res.status(401).json({message:"Valor não pode ser menor que o Valor da venda do produto"});
-		// console.log(precoCadastrado)
-		
-		// console.log(valorDaVenda, status, cliente_id, produto_id);
+		if (valorDaVenda<precoCadastrado) return res.status(409).json({message:"Valor não pode ser menor que o Valor da venda do produto"});
 
 		await PedidosService.create(valorDaVenda,quantidade, status, cliente_id, produto_id);
 		
-		return res.status(203).json({message:"Pedido Criado com Sucesso"});
+		req.res = {status:201,message:{message:"Pedido Criado com Sucesso"}}
+
+		next();
 		
 	} catch (error) {
 		return res.status(500).json({message: error});
 	}
 };
 
-const update = async (req, res) => {
+const update = async (req, res,next) => {
 	const { id } = req.params;
 	// const {user} = req;
 	
 	try {
-		// console.log(valorDaVenda, status, cliente_id, produto_id);
-		const produto = await PedidosService.update(id)
-		if(!produto) return res.status(401).json({message:"Problemas ao alterar Produto"});
+
+		const pedido = await PedidosService.update(id)
+		// console.log(pedido);
+		if(!pedido) return res.status(400).json({message:"É preciso forncecer o id do Pedido"});
 		
-		return res.status(203).json({message:"produto atualizado com Sucesso"});
+		req.res = {status:200,message:{message:"Pedido atualizado com Sucesso"}}
+
+		next();
 		
 	} catch (error) {
 		return res.status(500).json({message: error});

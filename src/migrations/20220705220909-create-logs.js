@@ -9,7 +9,23 @@ module.exports = {
 			primaryKey: true,
 			type: Sequelize.INTEGER
 		},
-		log: {
+		idUser: {
+			allowNull:false,
+			type: Sequelize.INTEGER
+		},
+		user: {
+			allowNull:false,
+			type: Sequelize.STRING
+		},
+		data: {
+			allowNull:false,
+			type: Sequelize.STRING
+		},
+		tabela: {
+			allowNull:false,
+			type: Sequelize.STRING
+		},
+		acao: {
 			allowNull:false,
 			type: Sequelize.STRING
 		}

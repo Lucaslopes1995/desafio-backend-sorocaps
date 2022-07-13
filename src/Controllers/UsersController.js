@@ -26,7 +26,7 @@ const getById = async (req, res) => {
 	}
 };
 
-const verificaByName = async (req, res, next) => {
+const vericaByUser = async (req, res, next) => {
 	const { name } = req.params;
 	try {
 		const user = await UserService.verificaByName(name);
@@ -38,12 +38,11 @@ const verificaByName = async (req, res, next) => {
 	}
 };
 
-const verificaByNamePWD = async (req, res, next) => {
-	const { name, password } = req.body;
+const vericaByUserPWD = async (req, res, next) => {
+	const { usuario, password } = req.body;
 	console.log(req.body);
 	try {
-		const user = await UserService.verificaByNamePWD(name, password);
-		console.log(user);
+		const user = await UserService.vericaByUserPWD(usuario, password);
 		if (user === "Usuário não encontrado") return res.status(404).json({message:"Usuário não encontrado"});
 		if (user === null) return res.status(404).json({message:"Dados Inválidos"});
 		next();
@@ -53,10 +52,10 @@ const verificaByNamePWD = async (req, res, next) => {
 	}
 };
 
-const getByName = async (name, password) => {
+const getByUser = async (usuario, password) => {
 
 	try {
-		const user = await UserService.getByName(name, password);
+		const user = await UserService.getByName(usuario, password);
 
 		return user
 		
@@ -66,18 +65,19 @@ const getByName = async (name, password) => {
 };
 
 const create = async (req, res, next) => {
-	const { name, password } = req.body;
-	// console.log(req.body)
+	const { name, usuario,  password } = req.body;
 
 	try {
-		if(!name && !password) return res.status(401).json({message:"É preciso adicionar Nome e Senha"});
-		if(!name) return res.status(401).json({message:"É preciso adicionar Nome"});
-		if(!password) return res.status(401).json({message:"É preciso adicionar Senha"});
-		const user = await getByName(name, password)
-		if (user) return res.status(401).json({message:"Usuário já existe"});
-		await UserService.create(name, password);
+		if(!name) return res.status(400).json({message:"É preciso adicionar Nome"});
+		if(!usuario) return res.status(400).json({message:"É preciso adicionar Usuário"});
+		if(!password) return res.status(400).json({message:"É preciso adicionar Senha"});
+		const user = await UserService.vericaByUser(usuario)
+		if (user) return res.status(409).json({message:"Usuário já existe"});
+		await UserService.create(name, usuario, password);
+
+		req.res = {status:201,message:{message:"Usuário Criado com Sucesso"}}
 		
-		next()
+		next();
 		// return res.status(203).json({message:"Usuário Criado com Sucesso"});
 		
 	} catch (error) {
@@ -86,4 +86,4 @@ const create = async (req, res, next) => {
 };
 
 
-module.exports = {getAll, getByName, getById, verificaByName, verificaByNamePWD ,create};
+module.exports = {getAll, getByUser, getById, vericaByUser, vericaByUserPWD ,create};

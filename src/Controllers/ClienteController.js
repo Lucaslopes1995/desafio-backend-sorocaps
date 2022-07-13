@@ -38,7 +38,7 @@ const getByCNPJ = async (cnpj) => {
 	}
 };
 
-const create = async (req, res) => {
+const create = async (req, res, next) => {
 	// console.log("req.body");
 	// console.log(req.body);
 
@@ -46,18 +46,20 @@ const create = async (req, res) => {
 	// const {user} = req;
 	
 	try {
-		if (!nome) return res.status(401).json({message:"Nome não pode estar em vazio"});
-		if (!razaoSocial) return res.status(401).json({message:"A Razao Social não pode estar em vazio"});
-		if (!cnpj) return res.status(401).json({message:"O CNPJ não pode estar em vazio"});
-		if (!/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/.test(cnpj)) return res.status(401).json({message:"O CNPJ precisa estar no seguinte formato 11.111.111/0001-21"});
-		if (!endereco) return res.status(401).json({message:"O Endereco não pode estar em vazio"});
+		if (!nome) return res.status(400).json({message:"Nome não pode estar em vazio"});
+		if (!razaoSocial) return res.status(400).json({message:"A Razao Social não pode estar em vazio"});
+		if (!cnpj) return res.status(400).json({message:"O CNPJ não pode estar em vazio"});
+		if (!/^(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})$/.test(cnpj)) return res.status(400).json({message:"O CNPJ precisa estar no seguinte formato 11.111.111/0001-21"});
+		if (!endereco) return res.status(400).json({message:"O Endereco não pode estar em vazio"});
 
 
 		const cliente = await getByCNPJ(cnpj)
-		if (cliente) return res.status(401).json({message:"CNPJ Já existe"});
+		if (cliente) return res.status(405).json({message:"CNPJ Já existe"});
 		await ClienteService.create(nome, razaoSocial, cnpj, endereco);
 		
-		return res.status(203).json({message:"Cliente Criado com Sucesso"});
+		// return res.status(203).json({message:"Cliente Criado com Sucesso"});
+		req.res = {status:201,message:{message:"Cliente Criado com Sucesso"}}
+		next();
 		
 	} catch (error) {
 		return res.status(500).json({message: error});
