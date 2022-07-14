@@ -9,21 +9,14 @@ const logger = require('./src/looger');
 
 const router = require('./src/Routes')
 
-
-
-
 const app = express();
 app.use(cors());
 
 app.use(bodyParser.json());
 
 // app.use(pinoHttp);
-// app.use(LogssService.create);
-
 
 app.use('/',router);
-
-
 
 const PORT = process.env.PORT || 3002;
 

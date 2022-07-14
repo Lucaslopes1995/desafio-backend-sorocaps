@@ -4,10 +4,6 @@ const Pedido = (sequelize,DataTypes) => {
 		quantidade: DataTypes.INTEGER,
 		status: DataTypes.STRING,
 
-		// cliente_id:DataTypes.INTEGER,
-		// produto_id: DataTypes.INTEGER
-
-
 	},{
 		timestamps:false,
 	}

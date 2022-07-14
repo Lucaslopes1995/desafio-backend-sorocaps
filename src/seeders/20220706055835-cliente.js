@@ -4,16 +4,16 @@ module.exports = {
   async up (queryInterface, Sequelize) {
 	queryInterface.bulkInsert("Clientes",[
 		{
-			nome:"fernando",
-			razaoSocial: "testeRa",
-			cnpj: '1234567',
-			endereco: "rua teste",
+			nome:"cliente Exemplo",
+			razaoSocial: "exeplo razao social",
+			cnpj: '32.111.111/0001-11',
+			endereco: "exeplo cliente",
 		},
 		{
 			nome:"gabriela",
-			razaoSocial: "teste1",
-			cnpj: '1234512',
-			endereco: "rua outro teste",
+			razaoSocial: "exeplo teste2",
+			cnpj: '32.111.113/0001-11',
+			endereco: "exeplo cliente2",
 		}
 	])
   },

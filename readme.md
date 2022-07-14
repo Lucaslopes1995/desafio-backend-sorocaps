@@ -17,6 +17,20 @@
 
 - `npm install`
 
-3. Inicialize o servidor
+3. Crie um Banco de dados no SQL com o seguinte nome "heroku_f602c367625846b". Abaixo está a query para criação:
+	- CREATE SCHEMA heroku_f602c367625846b;
 
-- `npm start`
+	Em seguida, utilize o seguinte comando para rodar as migrations para configuração das tabelas:
+	- npx sequelize db:migrate
+	
+	Utilize também o comando abaixo para rodar as seeders e adicionar campos nas tabelas:
+	- npx sequelize db:seed:all
+
+	Substitua as configurações das variáveis de ambiente, alterando o arquivo o nome do arquivo ".env_example", localizo na raiz da aplicação, pelo nome ".env".
+
+	Por fim inicie a aplicação com o comando:
+	- `npm start`
+
+
+
+

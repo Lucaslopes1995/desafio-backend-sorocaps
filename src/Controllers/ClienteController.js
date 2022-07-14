@@ -39,12 +39,9 @@ const getByCNPJ = async (cnpj) => {
 };
 
 const create = async (req, res, next) => {
-	// console.log("req.body");
-	// console.log(req.body);
 
 	const { nome, razaoSocial, cnpj, endereco } = req.body;
-	// const {user} = req;
-	
+
 	try {
 		if (!nome) return res.status(400).json({message:"Nome não pode estar em vazio"});
 		if (!razaoSocial) return res.status(400).json({message:"A Razao Social não pode estar em vazio"});
@@ -57,7 +54,6 @@ const create = async (req, res, next) => {
 		if (cliente) return res.status(405).json({message:"CNPJ Já existe"});
 		await ClienteService.create(nome, razaoSocial, cnpj, endereco);
 		
-		// return res.status(203).json({message:"Cliente Criado com Sucesso"});
 		req.res = {status:201,message:{message:"Cliente Criado com Sucesso"}}
 		next();
 		

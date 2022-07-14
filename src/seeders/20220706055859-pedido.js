@@ -4,18 +4,18 @@ module.exports = {
   async up (queryInterface, Sequelize) {
 	queryInterface.bulkInsert("Pedidos",[
 		{
-			valorDaVenda: 123,
-			quantidade: 123,
-			status: "ok",
 			cliente_id: 1,
 			produto_id: 1,
+			valorDaVenda: 3500,
+			quantidade: 2,
+			status: "APROVADO",
 		},
 		{
-			valorDaVenda: 12,
-			quantidade: 2,
-			status: "opa",
 			cliente_id: 1,
 			produto_id: 1,
+			valorDaVenda: 4000,
+			quantidade: 2,
+			status: "EM PROCESSO",
 		}
 	])
   },

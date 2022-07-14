@@ -1,8 +1,6 @@
 const {Clientes, Pedidos} =  require('../models');
 
 
-
-
 const getAll = async () =>{
 	try {
 		const cliente = await Clientes.findAll();
@@ -11,8 +9,6 @@ const getAll = async () =>{
 	} catch (error) {
 		console.log(error)
 	}
-
-
 }
 
 const getById = async (id) => {
@@ -21,7 +17,6 @@ const getById = async (id) => {
 }
 
 const getByCNPJ = async (cnpj) => {
-	// console.log("awd")
 	const cliente = await Clientes.findOne({where: {cnpj}});
 	if (cliente) return cliente
 

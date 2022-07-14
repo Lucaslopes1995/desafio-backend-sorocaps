@@ -25,6 +25,9 @@ router.get('/validtoken/',validateToken, retornaDadoToken);
 
 router.get('/users',UsersController.getAll);
 
+
+router.get('/logs',LogssService.getAll);
+
 router.get('/users/:id',UsersController.getById);
 
 

@@ -40,11 +40,12 @@ const vericaByUser = async (req, res, next) => {
 
 const vericaByUserPWD = async (req, res, next) => {
 	const { usuario, password } = req.body;
-	console.log(req.body);
 	try {
+		if(!usuario) return res.status(400).json({message:"É preciso adicionar Usuário"});
+		if(!password) return res.status(400).json({message:"É preciso adicionar Senha"});
 		const user = await UserService.vericaByUserPWD(usuario, password);
 		if (user === "Usuário não encontrado") return res.status(404).json({message:"Usuário não encontrado"});
-		if (user === null) return res.status(404).json({message:"Dados Inválidos"});
+		if (user === null) return res.status(404).json({message:"Senha Incorreta"});
 		next();
 		
 	} catch (error) {
@@ -76,9 +77,7 @@ const create = async (req, res, next) => {
 		await UserService.create(name, usuario, password);
 
 		req.res = {status:201,message:{message:"Usuário Criado com Sucesso"}}
-		
 		next();
-		// return res.status(203).json({message:"Usuário Criado com Sucesso"});
 		
 	} catch (error) {
 		return res.status(500).json({message: error});

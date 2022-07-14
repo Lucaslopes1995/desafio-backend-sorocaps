@@ -3,7 +3,6 @@ const {Users} =  require('../models');
 
 
 
-
 const getAll = async () =>{
 	try {
 		const users = await Users.findAll();
@@ -12,8 +11,6 @@ const getAll = async () =>{
 	} catch (error) {
 		console.log(error)
 	}
-
-
 }
 
 const getById = async (id) => {
@@ -23,14 +20,11 @@ const getById = async (id) => {
 
 const vericaByUser = async (usuario) => {
 	const user = await Users.findOne({where:{usuario}});
-	console.log(user)
 	return user;
 }
 
 const vericaByUserPWD = async (usuario,password) => {
-	// console.log("name")
 	const nameUser = await Users.findOne({where:{usuario}});
-	// console.log(nameUser);
 
 	if (!nameUser) return "Usuário não encontrado";
 

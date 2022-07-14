@@ -7,8 +7,6 @@ const secret = process.env.SECRET;
 const geraToken = async (req, _res, next) => {
 	
 	const {usuario, password} = req.body;
-
-	// console.log("op",name, password)
 	const user = {usuario, password}
 	
 	const jwtConfig = {
@@ -20,7 +18,6 @@ const geraToken = async (req, _res, next) => {
 	req.user = {usuario, password}
 	req.res = {status: 200, token}
 	next();
-	// return res.status(200).json({ token });
 } 
 
 module.exports = geraToken

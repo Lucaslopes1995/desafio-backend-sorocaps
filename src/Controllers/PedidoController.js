@@ -10,7 +10,6 @@ const ProductService =  require('../Services/ProductService');
 const getAll = async (_req, res) => {
 	try {
 		const pedidos = await PedidosService.getAll();
-		// console.log(pedidos)
 		if(pedidos.length===0) return res.status(404).json({message:"Nenhum Pedido Encontrado"});
 		return res.status(202).json(pedidos); 
 		
@@ -64,12 +63,10 @@ const create = async (req, res, next) => {
 
 const update = async (req, res,next) => {
 	const { id } = req.params;
-	// const {user} = req;
 	
 	try {
 
 		const pedido = await PedidosService.update(id)
-		// console.log(pedido);
 		if(!pedido) return res.status(400).json({message:"É preciso forncecer o id do Pedido"});
 		
 		req.res = {status:200,message:{message:"Pedido atualizado com Sucesso"}}
