@@ -19,6 +19,7 @@ const create = async (req, res) =>{
 
 	try {
 
+		const {status, token, message, idAlterado} = req.res
 		const path = req.route.path;
 		const {method} =req;
 		
@@ -38,9 +39,9 @@ const create = async (req, res) =>{
 		let d = new Date();
 		let data = new Date(d.valueOf() - d.getTimezoneOffset() * 60000).toISOString();
 
-		await Logs.create({idUser, user, data, tabela, acao});
+		await Logs.create({idAlterado, idUser, user, data, tabela, acao});
 
-		const {status, token, message} = req.res
+		
 
 		if(token){
 			return res.status(status).json({token})

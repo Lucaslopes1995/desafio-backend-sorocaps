@@ -50,9 +50,12 @@ const create = async (req, res, next) => {
 		
 		if (valorDaVenda<precoCadastrado) return res.status(409).json({message:"Valor não pode ser menor que o Valor da venda do produto"});
 
-		await PedidosService.create(valorDaVenda,quantidade, status, cliente_id, produto_id);
+		const {_previousDataValues} = await PedidosService.create(valorDaVenda,quantidade, status, cliente_id, produto_id);
+
+		const {id:idAlterado} = _previousDataValues;
+
 		
-		req.res = {status:201,message:{message:"Pedido Criado com Sucesso"}}
+		req.res = {status:201,message:{message:"Pedido Criado com Sucesso"}, idAlterado}
 
 		next();
 		
@@ -68,8 +71,10 @@ const update = async (req, res,next) => {
 
 		const pedido = await PedidosService.update(id)
 		if(!pedido) return res.status(400).json({message:"É preciso forncecer o id do Pedido"});
+
+		const idAlterado = id;
 		
-		req.res = {status:200,message:{message:"Pedido atualizado com Sucesso"}}
+		req.res = {status:200,message:{message:"Pedido atualizado com Sucesso"}, idAlterado}
 
 		next();
 		

@@ -52,9 +52,11 @@ const create = async (req, res, next) => {
 
 		const cliente = await getByCNPJ(cnpj)
 		if (cliente) return res.status(405).json({message:"CNPJ Já existe"});
-		await ClienteService.create(nome, razaoSocial, cnpj, endereco);
+		const {_previousDataValues} = await ClienteService.create(nome, razaoSocial, cnpj, endereco);
+
+		const {id:idAlterado} = _previousDataValues;
 		
-		req.res = {status:201,message:{message:"Cliente Criado com Sucesso"}}
+		req.res = {status:201,message:{message:"Cliente Criado com Sucesso"}, idAlterado}
 		next();
 		
 	} catch (error) {

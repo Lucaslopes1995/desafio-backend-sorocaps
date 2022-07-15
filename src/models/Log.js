@@ -1,5 +1,6 @@
 const Log = (sequelize,DataTypes) => {
 	const Log = sequelize.define("Logs",{
+		idAlterado: DataTypes.INTEGER,
 		idUser: DataTypes.INTEGER,
 		user: DataTypes.STRING,
 		data: DataTypes.STRING,

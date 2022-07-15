@@ -39,9 +39,11 @@ const create = async (req, res, next) => {
 		if (!valorDaCompra) return res.status(400).json({message:"É preciso adicionar o Valor da Compra"});
 		if (!precoDaVenda) return res.status(400).json({message:"É preciso adicionar o Preço da Venda"});
 
-		await ProductService.create( nomeProduto, codigoDoProduto, descricaoDoProduto, unidadeDeMedida, valorDaCompra, precoDaVenda );
+		const {_previousDataValues} = await ProductService.create( nomeProduto, codigoDoProduto, descricaoDoProduto, unidadeDeMedida, valorDaCompra, precoDaVenda );
 
-		req.res = {status:201,message:{message:"Produto Criado com Sucesso"}}
+		const {id: idAlterado} = _previousDataValues;
+
+		req.res = {status:201,message:{message:"Produto Criado com Sucesso"}, idAlterado}
 		next();
 		
 		

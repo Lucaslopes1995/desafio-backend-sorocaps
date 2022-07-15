@@ -74,9 +74,11 @@ const create = async (req, res, next) => {
 		if(!password) return res.status(400).json({message:"É preciso adicionar Senha"});
 		const user = await UserService.vericaByUser(usuario)
 		if (user) return res.status(409).json({message:"Usuário já existe"});
-		await UserService.create(name, usuario, password);
+		const {_previousDataValues} = await UserService.create(name, usuario, password);
 
-		req.res = {status:201,message:{message:"Usuário Criado com Sucesso"}}
+		const {id: idAlterado} = _previousDataValues;
+
+		req.res = {status:201,message:{message:"Usuário Criado com Sucesso"}, idAlterado}
 		next();
 		
 	} catch (error) {

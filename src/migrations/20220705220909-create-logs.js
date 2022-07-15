@@ -9,6 +9,10 @@ module.exports = {
 			primaryKey: true,
 			type: Sequelize.INTEGER
 		},
+		idAlterado: {
+			allowNull:false,
+			type: Sequelize.INTEGER
+		},
 		idUser: {
 			allowNull:false,
 			type: Sequelize.INTEGER
