@@ -11,7 +11,7 @@
 
 - `git clone git@github.com:Lucaslopes1995/desafio-backend-sorocaps.git`
 - Entre na pasta do repositório que você acabou de clonar:
-  - `cd Back-End`
+  - `cd desafio-backend-sorocaps`
 
 2. Instale as dependências do back
 
